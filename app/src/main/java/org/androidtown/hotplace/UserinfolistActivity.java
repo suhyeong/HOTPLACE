@@ -99,6 +99,7 @@ public class UserinfolistActivity extends AppCompatActivity {
     StorageReference storageReference = storage.getReference();
     StorageReference pathReference;
 
+    android.support.v7.widget.Toolbar Userinfo_Toolbar;
     Dialog DialogPopup;
     TextView takephotobtn, takealbumbtn, resetprofilebtn, cancelbtn;
     EditText passwd_modify, passwd_mod_chk;
@@ -133,9 +134,7 @@ public class UserinfolistActivity extends AppCompatActivity {
         userprofile = (CircleImageView) findViewById(R.id.user_profile_image);
 
         profile_change = (TextView) findViewById(R.id.profile_change);
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Userinfo_Toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.userinfo_toolbar);
 
         username_text = (TextView) findViewById(R.id.user_name_text);
         useremail_text = (TextView) findViewById(R.id.user_email_text);
@@ -144,6 +143,10 @@ public class UserinfolistActivity extends AppCompatActivity {
 
         passwd_modify = (EditText) findViewById(R.id.user_passwd_modify);
         passwd_mod_chk = (EditText) findViewById(R.id.user_passwd_modify_check);
+
+        setSupportActionBar(Userinfo_Toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         database.getInstance().getReference("user_info").child(user.getUid()).addValueEventListener(new ValueEventListener() {
@@ -287,9 +290,9 @@ public class UserinfolistActivity extends AppCompatActivity {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                         startActivityForResult(intent, PICK_FROM_CAMERA);
                     } else {
-                        photoUri = Uri.fromFile(tempFile);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                        startActivityForResult(intent, PICK_FROM_CAMERA);
+                    photoUri = Uri.fromFile(tempFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                    startActivityForResult(intent, PICK_FROM_CAMERA);
                     }
                 }
             } else {

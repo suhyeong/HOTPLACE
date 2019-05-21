@@ -11,6 +11,17 @@
     android:orientation="horizontal"
     tools:ignore="MissingPrefix">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="0dp"
+        tools:ignore="MissingConstraints">
+    </android.support.v7.widget.Toolbar>
+
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +38,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="60dp"
             sl:scale_width="450"
-            sl:scale_top="50" />
+            sl:scale_top="200" />
 
         <Spinner
             android:id="@+id/spinner2"
@@ -37,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="60dp"
             sl:scale_width="320"
-            sl:scale_top="50"
+            sl:scale_top="200"
             sl:scale_left="450"/>
 
         <Spinner
@@ -48,7 +59,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="60dp"
             sl:scale_width="310"
-            sl:scale_top="50"
+            sl:scale_top="200"
             sl:scale_left="770"
             tools:ignore="MissingConstraints" />
 
@@ -60,7 +71,7 @@
             android:layout_gravity="center_horizontal"
             android:src="@null"
             sl:scale_height="280"
-            sl:scale_top="220"
+            sl:scale_top="370"
             sl:scale_width="500" />
 
         <TextView
@@ -70,7 +81,7 @@
             android:gravity="center"
             android:text=""
             android:layout_gravity="center_horizontal"
-            sl:scale_top="468"
+            sl:scale_top="618"
             sl:scale_width="500"
             sl:scale_height="135"
             sl:scale_textsize="125"/>
@@ -81,7 +92,7 @@
             android:id="@+id/search_weather_maxtemp"
             android:gravity="center"
             android:text=""
-            sl:scale_top="620"
+            sl:scale_top="771"
             sl:scale_left="400"
             sl:scale_width="100"
             sl:scale_height="130"
@@ -95,7 +106,7 @@
             android:text="/"
             sl:scale_left="510"
             sl:scale_textsize="70"
-            sl:scale_top="635"
+            sl:scale_top="785"
             sl:scale_width="50" />
 
         <TextView
@@ -104,7 +115,7 @@
             android:id="@+id/search_weather_mintemp"
             android:gravity="center"
             android:text=""
-            sl:scale_top="620"
+            sl:scale_top="770"
             sl:scale_left="560"
             sl:scale_width="100"
             sl:scale_height="130"
@@ -117,7 +128,7 @@
             android:layout_gravity="center_horizontal"
             sl:scale_width="900"
             sl:scale_height="700"
-            sl:scale_top="850"/>
+            sl:scale_top="1000"/>
     </com.ssomai.android.scalablelayout.ScalableLayout>
 
 </android.support.constraint.ConstraintLayout>

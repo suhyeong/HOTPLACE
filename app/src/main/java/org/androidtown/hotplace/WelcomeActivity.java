@@ -30,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.security.MessageDigest;
 
 
-public class WelcomeActivity extends AppCompatActivity {
+public class welcomeActivity extends AppCompatActivity {
     EditText ID, PASSWD;
     Button btnsignup, btnlogin;
     ImageView logo1, logo2;
@@ -112,12 +112,12 @@ public class WelcomeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //로그인 성공
                             finish();
-                            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                            Intent intent = new Intent(welcomeActivity.this, MainActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         } else {
                             //로그인 실패
-                            Toast.makeText(WelcomeActivity.this, "아이디 혹은 비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(welcomeActivity.this, "아이디 혹은 비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -133,7 +133,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private boolean isVaildId() {
         if(userId.isEmpty()) {
             //이메일 공백
-            Toast.makeText(WelcomeActivity.this, "이메일을 입력하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(welcomeActivity.this, "이메일을 입력하세요.", Toast.LENGTH_SHORT).show();
             return false;
         } else
             return true;
@@ -143,7 +143,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private boolean isVaildPasswrd() {
         if(userPasswd.isEmpty()) {
             //비밀번호 공백
-            Toast.makeText(WelcomeActivity.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(welcomeActivity.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

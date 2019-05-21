@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FriendsRequestFragment">
+    tools:context=".Friends_RequestFragment">
 
     <TextView
         android:id="@+id/request_list_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="친구 요청이 없습니다."
-        android:paddingTop="15dp"
+        android:paddingTop="30dp"
         android:layout_gravity="center_horizontal" />
 
     <ScrollView

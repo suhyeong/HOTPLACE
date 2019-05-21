@@ -39,14 +39,23 @@ public class SearchActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    Traffic_MapFragment traffic_mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Search_Toolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        setSupportActionBar(Search_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        traffic_mapFragment = new Traffic_MapFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.traffic_map, traffic_mapFragment);
+        //fragmentTransaction.commit();
 
         now_temp = (TextView) findViewById(R.id.search_weather_nowtemp);
         max_temp = (TextView) findViewById(R.id.search_weather_maxtemp);
@@ -369,7 +378,7 @@ public class SearchActivity extends AppCompatActivity {
                     spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                            if (adspin2.getItem(position).equals("파주시")) {
+                             if (adspin2.getItem(position).equals("파주시")) {
                                 choice_do = "파주시";
                                 adspin3 = ArrayAdapter.createFromResource(SearchActivity.this, R.array.파주시, android.R.layout.simple_spinner_dropdown_item);
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -484,8 +493,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("yeoncheongun");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("yeoncheongun");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -503,8 +512,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Yeoju");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Yeoju");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -522,8 +531,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Yangpyong");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Yangpyong");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -541,8 +550,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Yangju");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Yangju");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -560,8 +569,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Vijongbu");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Vijongbu");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -579,8 +588,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Suigen");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Suigen");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -598,8 +607,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Bucheon");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Bucheon");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -617,8 +626,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Osan");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Osan");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -636,8 +645,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Kuri");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Kuri");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -655,8 +664,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Goyang");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Goyang");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -674,8 +683,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Gapyeong");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Gapyeong");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -693,8 +702,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Hwaseong");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Hwaseong");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -712,8 +721,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Anyang");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Anyang");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -731,8 +740,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Anseong");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Anseong");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -750,8 +759,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Ansan");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Ansan");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -769,8 +778,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Seongnam");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Seongnam");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -788,8 +797,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Hanam");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Hanam");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -807,8 +816,8 @@ public class SearchActivity extends AppCompatActivity {
                                 adspin3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 spinner3.setAdapter(adspin3);
 
-                                find_weather("Kwangmyong");
-                                temp_div.setVisibility(View.VISIBLE);
+                                 find_weather("Kwangmyong");
+                                 temp_div.setVisibility(View.VISIBLE);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

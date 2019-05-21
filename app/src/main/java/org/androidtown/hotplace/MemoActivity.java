@@ -53,6 +53,8 @@ public class MemoActivity extends AppCompatActivity {
 
     private static final String TAG = "Memo Activity";
 
+    Toolbar Memo_Toolbar;
+
     TextView memo_contents, memo_add_photo, memo_date, memo_location;
     EditText edit_memo_contents;
     ImageView add_to_take_photo, add_to_take_album, memo_photo, memo_photo_delete;
@@ -88,6 +90,8 @@ public class MemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
 
+        Memo_Toolbar = (Toolbar) findViewById(R.id.memo_toolbar);
+        setSupportActionBar(Memo_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -147,10 +151,11 @@ public class MemoActivity extends AppCompatActivity {
 
     }
 
-    //액션버튼 메뉴 액션바에 집어 넣기
+    //툴바 메뉴 출력
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_memo, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.actionbar_memo, menu);
         return true;
     }
 
@@ -211,19 +216,18 @@ public class MemoActivity extends AppCompatActivity {
     //메모 생성
     public void CompleteMemo() {
         memo_contents_text = edit_memo_contents.getText().toString();
-        if(!isValidContents()) {
+        if(!isVaildContents()) {
             CreateMemo(memo_contents_text);
         }
     }
 
     //메모 내용값이 있는지 확인
-    private boolean isValidContents() {
+    private boolean isVaildContents() {
         if(memo_contents_text.isEmpty()){
             Toast.makeText(MemoActivity.this, "메모의 내용을 입력하세요.", Toast.LENGTH_SHORT).show();
             return true;
         }
-        else
-            return false;
+        return false;
     }
 
     //메모 작성 날짜 불러오기 (현재)
@@ -342,7 +346,7 @@ public class MemoActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
         ExifInterface exif = null;
         try {
-            exif = new ExifInterface(photoFile.getAbsolutePath());
+           exif = new ExifInterface(photoFile.getAbsolutePath());
         } catch (IOException exc) {
             exc.printStackTrace();
         }

@@ -12,6 +12,29 @@
     android:id="@+id/friends_layout"
     tools:ignore="missingPrefix" >
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/friends_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="0dp"
+        app:contentInsetStart="0dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="친구"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+    </android.support.v7.widget.Toolbar>
+
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +50,7 @@
             android:text="목록"
             sl:scale_width="360"
             sl:scale_height="130"
-            sl:scale_top="50"
+            sl:scale_top="170"
             sl:scale_textsize="50" />
 
         <Button
@@ -39,7 +62,7 @@
             sl:scale_left="360"
             sl:scale_width="360"
             sl:scale_height="130"
-            sl:scale_top="50"
+            sl:scale_top="170"
             sl:scale_textsize="50"/>
 
         <Button
@@ -50,7 +73,7 @@
             sl:scale_left="720"
             sl:scale_width="360"
             sl:scale_height="130"
-            sl:scale_top="50"
+            sl:scale_top="170"
             sl:scale_textsize="50"/>
 
         <FrameLayout
@@ -60,8 +83,11 @@
             android:background="@color/transparency"
             sl:scale_width="1080"
             sl:scale_height="1600"
-            sl:scale_top="200">
+            sl:scale_top="320">
 
         </FrameLayout>
+
+
     </com.ssomai.android.scalablelayout.ScalableLayout>
+
 </android.support.constraint.ConstraintLayout>

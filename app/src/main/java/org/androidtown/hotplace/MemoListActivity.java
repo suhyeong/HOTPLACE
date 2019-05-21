@@ -37,6 +37,7 @@ import java.util.List;
 
 public class MemoListActivity extends AppCompatActivity {
 
+    Toolbar Memo_List_Toolbar;
     TextView memo_list_count;
 
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -63,6 +64,8 @@ public class MemoListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_list);
 
+        Memo_List_Toolbar = (Toolbar) findViewById(R.id.memo_list_toolbar);
+        setSupportActionBar(Memo_List_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

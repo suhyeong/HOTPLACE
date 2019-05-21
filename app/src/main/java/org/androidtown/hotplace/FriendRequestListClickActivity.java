@@ -43,6 +43,7 @@ public class FriendRequestListClickActivity extends AppCompatActivity {
     StorageReference storageReference = storage.getReference();
     StorageReference pathReference;
 
+    Toolbar Request_Friends_List_Click_Toolbar;
     CircleImageView friends_profile_photo_imageview;
     TextView friend_name_textview, friend_email_textview, friend_birth_textview, friend_memo_not_open, friend_memo_friend_open, friend_memo_count;
 
@@ -73,6 +74,8 @@ public class FriendRequestListClickActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_request_list_click);
 
+        Request_Friends_List_Click_Toolbar = (Toolbar) findViewById(R.id.request_friend_list_click_toolbar);
+        setSupportActionBar(Request_Friends_List_Click_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);

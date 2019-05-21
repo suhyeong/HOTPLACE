@@ -6,8 +6,20 @@
     xmlns:sl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFriendMemoListClickActivity"
+    tools:context=".FriendMemoListClickActivity"
     tools:ignore="missingPrefix">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_friend_memo_list_click_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="0dp"
+        app:contentInsetStart="0dp"
+        tools:ignore="MissingConstraints">
+    </android.support.v7.widget.Toolbar>
 
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
@@ -23,7 +35,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="right"
             android:text="@null"
-            sl:scale_top="50"
+            sl:scale_top="220"
             sl:scale_left="180"
             sl:scale_width="600"
             sl:scale_textsize="55"
@@ -42,7 +54,7 @@
             android:scrollHorizontally="false"
             sl:scale_height="850"
             sl:scale_textsize="50"
-            sl:scale_top="155"
+            sl:scale_top="325"
             sl:scale_width="1080" />
 
         <TextView
@@ -51,7 +63,7 @@
             android:layout_height="wrap_content"
             android:text="@null"
             android:gravity="right"
-            sl:scale_top="1030"
+            sl:scale_top="1200"
             sl:scale_width="1000"
             sl:scale_height="70"
             sl:scale_textsize="45"
@@ -62,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            sl:scale_top="1150"
+            sl:scale_top="1300"
             sl:scale_width="1080"
             sl:scale_height="450"/>
 

@@ -1,5 +1,6 @@
 package org.androidtown.hotplace;
 
+
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -27,20 +28,23 @@ public class FriendsActivity extends AppCompatActivity implements View.OnClickLi
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    Toolbar Friends_Toolbar;
     Button friends_list, friends_search, friends_request;
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
-    FriendsListFragment friends_list_fragment;
-    FriendsSearchFragment friends_search_fragment;
-    FriendsRequestFragment friends_request_fragment;
+    Friends_ListFragment friends_list_fragment;
+    Friends_SearchFragment friends_search_fragment;
+    Friends_RequestFragment friends_request_fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
+        Friends_Toolbar = (Toolbar) findViewById(R.id.friends_toolbar);
+        setSupportActionBar(Friends_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -55,9 +59,9 @@ public class FriendsActivity extends AppCompatActivity implements View.OnClickLi
         friends_search.setBackgroundResource(R.drawable.friends_button_shape);
         friends_request.setBackgroundResource(R.drawable.friends_button_shape);
 
-        friends_list_fragment = new FriendsListFragment();
-        friends_search_fragment = new FriendsSearchFragment();
-        friends_request_fragment = new FriendsRequestFragment();
+        friends_list_fragment = new Friends_ListFragment();
+        friends_search_fragment = new Friends_SearchFragment();
+        friends_request_fragment = new Friends_RequestFragment();
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();

@@ -10,6 +10,29 @@
     android:id="@+id/create_memo_layout"
     tools:ignore="missingPrefix" >
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/memo_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="0dp"
+        app:contentInsetStart="0dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="메모 작성"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+    </android.support.v7.widget.Toolbar>
+
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="내용"
-            sl:scale_top="150"
+            sl:scale_top="240"
             sl:scale_width="110"
             sl:scale_height="80"
             sl:scale_textsize="60"
@@ -41,7 +64,7 @@
             android:padding="30dp"
             sl:scale_height="750"
             sl:scale_textsize="50"
-            sl:scale_top="250"
+            sl:scale_top="350"
             sl:scale_width="1080" />
 
         <TextView
@@ -50,7 +73,7 @@
             android:layout_height="wrap_content"
             android:text="@null"
             android:gravity="right"
-            sl:scale_top="150"
+            sl:scale_top="250"
             sl:scale_width="500"
             sl:scale_height="70"
             sl:scale_textsize="55"
@@ -62,7 +85,7 @@
             android:layout_height="wrap_content"
             android:text="@null"
             android:gravity="right"
-            sl:scale_top="1030"
+            sl:scale_top="1150"
             sl:scale_width="1000"
             sl:scale_height="70"
             sl:scale_textsize="45"
@@ -73,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="사진 추가"
-            sl:scale_top="1200"
+            sl:scale_top="1270"
             sl:scale_width="250"
             sl:scale_height="80"
             sl:scale_textsize="60"
@@ -85,7 +108,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_photo_camera_gray_24dp"
             android:background="@color/transparency"
-            sl:scale_top="1205"
+            sl:scale_top="1275"
             sl:scale_width="80"
             sl:scale_height="80"
             sl:scale_textsize="60"
@@ -97,7 +120,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_photo_album_gray_24dp"
             android:background="@color/transparency"
-            sl:scale_top="1203"
+            sl:scale_top="1273"
             sl:scale_width="80"
             sl:scale_height="80"
             sl:scale_textsize="60"
@@ -109,7 +132,7 @@
             android:layout_height="wrap_content"
             android:src="@null"
             sl:scale_left="50"
-            sl:scale_top="1315"
+            sl:scale_top="1390"
             sl:scale_width="400"
             sl:scale_height="300"/>
 
@@ -119,7 +142,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close_black_24dp"
             sl:scale_left="450"
-            sl:scale_top="1315"
+            sl:scale_top="1390"
             sl:scale_width="50"
             sl:scale_height="50"/>
 

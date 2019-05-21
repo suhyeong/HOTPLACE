@@ -43,9 +43,10 @@ public class FriendsSearchClickActivity extends AppCompatActivity {
     StorageReference storageReference = storage.getReference();
     StorageReference pathReference;
 
+    Toolbar Search_Friends_List_Click_Toolbar;
     CircleImageView friends_profile_photo_imageview;
     TextView friend_name_textview, friend_email_textview, friend_birth_textview, friend_memo_not_open, friend_memo_friend_open, friend_memo_count;
-
+    
     private String search_friend_uid;
     private String search_friend_name;
     private String search_friend_email;
@@ -73,6 +74,8 @@ public class FriendsSearchClickActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_search_click);
 
+        Search_Friends_List_Click_Toolbar = (Toolbar) findViewById(R.id.search_friends_list_click_toolbar);
+        setSupportActionBar(Search_Friends_List_Click_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -194,20 +197,20 @@ public class FriendsSearchClickActivity extends AppCompatActivity {
 
     public void AlreadyFriends_user() {
         database.getInstance().getReference("Friends_info").child(user.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot friendsSnapshot : dataSnapshot.getChildren()) {
-                    if(friendsSnapshot.getValue().toString().equals(search_friend_uid)) {
-                        alreadyfriends_user = true;
-                    }
-                }
-            }
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               for(DataSnapshot friendsSnapshot : dataSnapshot.getChildren()) {
+                   if(friendsSnapshot.getValue().toString().equals(search_friend_uid)) {
+                       alreadyfriends_user = true;
+                   }
+               }
+           }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                databaseError.getMessage();
-            }
-        });
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+               databaseError.getMessage();
+           }
+       });
     }
 
     public void AlreadyFriends_friend() {

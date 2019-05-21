@@ -1,39 +1,61 @@
 package org.androidtown.hotplace;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,11 +66,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.Api;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.places.PlaceReport;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -63,23 +96,53 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.kakao.kakaolink.KakaoLink;
+import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.naver.maps.map.CameraUpdate;
+import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.NaverMap;
+import com.ssomai.android.scalablelayout.ScalableLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.security.Permission;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener, GoogleMap.OnMarkerClickListener {
+import static com.naver.maps.map.NaverMap.LAYER_GROUP_TRAFFIC;
 
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+
+    //Toolbar MainToolbar;
     private BackPressCloseHandler backPressCloseHandler;
-    ActionBarDrawerToggle dtToggle;
     private DrawerLayout drawer;
+    //ActionBarDrawerToggle dtToggle;
     NavigationView navigationView;
+    GoogleMap mMap;
 
     LocationManager locationManager;
     double mLatitude; //위도
@@ -87,12 +150,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     TextView AddressTextview;
     private String userLocation;
 
-    private GoogleMap mMap;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-    TrafficMapFragment trafficMapFragment;
-
-    private FirebaseAuth userAuth = FirebaseAuth.getInstance(); //로그인한 사용자 정보
+    private FirebaseAuth userAuth = FirebaseAuth.getInstance();; //로그인한 사용자 정보
     final FirebaseUser user = userAuth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
@@ -108,27 +166,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String name_str;
     int profile_state;
 
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    Traffic_MapFragment traffic_mapFragment;
+
     FirebaseStorage storage = FirebaseStorage.getInstance("gs://hot-place-231908.appspot.com/");
     StorageReference storageReference = storage.getReference();
     StorageReference pathReference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //MainToolbar = (Toolbar) findViewById(R.id.maintoolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         AddressTextview = (TextView) findViewById(R.id.address_textview);
 
+        //setSupportActionBar(MainToolbar);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //dtToggle = new ActionBarDrawerToggle(this, drawer, MainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //drawer.addDrawerListener(dtToggle);
+        //dtToggle.syncState();
+        //drawer.setDrawerListener(dtToggle);
+        navigationView.setNavigationItemSelectedListener(this);
+
         backPressCloseHandler = new BackPressCloseHandler(this);
         locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+
 
         //GPS가 켜져있는지 확인
         if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -142,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //마시멜로 이상일 경우
         if(Build.VERSION.SDK_INT >= 23) {
             //권한 없는 경우
-            if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+            if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION} , 1);
             }
@@ -173,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 name_str = user_.userName;
                 profile_state = user_.userProfile;
 
-                username.setText(name_str+"님");
+                username.setText(name_str);
 
                 if(profile_state == 0)
                     userprofile.setImageResource(R.drawable.user_defaultprofile);
@@ -230,73 +299,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         min_temp = (TextView) findViewById(R.id.weather_mintemp);
         WeatherIconImg = (ImageView) findViewById(R.id.weather_icon);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        //구글맵 생성
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(MainActivity.this);
 
-        trafficMapFragment = new TrafficMapFragment();
+        //traffic info
+        traffic_mapFragment = new Traffic_MapFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.traffic_map, trafficMapFragment);
+        fragmentTransaction.replace(R.id.traffic_map, traffic_mapFragment);
         fragmentTransaction.commit();
+
+        //=> 구글맵과 네이버지도 동시에 키기 가능, Toolbar 때문에 켜지지 않음 수정할것 !
     }
 
-    //액션버튼 메뉴 액션바에 집어 넣기
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_actions, menu);
-        return true;
-    }
-
-    //액션버튼을 클릭했을때의 동작
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                //search icon selected : click event for action_search item
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                //nothing
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-        @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        //지도 타입 - 일반
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-        // 나의 위치 설정
-        final LatLng position = new LatLng(mLatitude, mLongitude);
-
-        //화면 중앙의 위치와 카메라 줌비율
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
-        mMap.addMarker(new MarkerOptions().position(position));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
-
-        database.getInstance().getReference("user_info").child(user.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User get = dataSnapshot.getValue(User.class);
-                String username_for_marker = get.userName;
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(position)
-                        .title(username_for_marker)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-                marker.showInfoWindow();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        mMap.setOnMarkerClickListener(this);
-    }
 
     //권한 요청후 응답 콜백
     @Override
@@ -314,6 +330,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+
 
     //위치정보 구하기 리스너
     LocationListener locationListener = new LocationListener() {
@@ -361,6 +378,43 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, locationListener);
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        //지도 타입 - 일반
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        // 나의 위치 설정
+        final LatLng position = new LatLng(mLatitude, mLongitude);
+
+        //화면 중앙의 위치와 카메라 줌비율
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+
+        database.getInstance().getReference("user_info").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User get = dataSnapshot.getValue(User.class);
+                String username_for_marker = get.userName;
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(position)
+                        .title(username_for_marker)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                marker.showInfoWindow();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        mMap.setOnMarkerClickListener(this);
+    }
+
+    public void friends_marker() {
+
+    }
+
     //위도와 경도로 주소 찾기
     public void getAddress(double mLatitude, double mLongitude) {
         Geocoder geocoder = new Geocoder(this, Locale.KOREA);
@@ -384,9 +438,43 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         AddressTextview.setText(str);
     }
 
+    /*
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.actionbar_actions, menu);
+        return true;
+    }
+
+    @Override
+    public void onPostCreate(Bundle saveInstanceState) {
+        super.onPostCreate(saveInstanceState);
+        dtToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        dtToggle.onConfigurationChanged(newConfig);
+    }*/
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                //search icon selected : click event for action_search item
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                //do nothing
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.memo:
                 openMemoList();
                 break;
@@ -399,7 +487,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 openSettings();
                 break;
             case R.id.share:
-                //share();
+                share();
                 break;
             case R.id.help:
                 Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
@@ -413,7 +501,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 //로그아웃 "네" 클릭시
                                 userAuth.signOut();
                                 Toast.makeText(MainActivity.this ,"로그아웃되었습니다.",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                                Intent intent = new Intent(MainActivity.this, welcomeActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent);
                                 //android.os.Process.killProcess(android.os.Process.myPid());
@@ -585,10 +673,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
     }
 
-    public void friends_marker() {
-
-    }
-
     //구글맵 마커 클릭시
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -619,4 +703,78 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
+    //공유 기능
+    public void share() {
+        String subject = "INVITE TO HOT PLACE!";
+        String text = name_str+"님이 핫플레이스를 공유하였습니다! 지금 확인해보세요.";
+        List targetShareIntent = new ArrayList<>();
+
+        //페이스북
+        Intent facebookIntent = getShareIntent("facebook", subject, text);
+        if(facebookIntent != null)
+            targetShareIntent.add(facebookIntent);
+
+        //트위터
+        Intent twitterIntent = getShareIntent("twitter", subject, text);
+        if(twitterIntent != null)
+            targetShareIntent.add(twitterIntent);
+
+        //Gmail
+        Intent gmailIntent = getShareIntent("gmail", subject, text);
+        if(gmailIntent != null)
+            targetShareIntent.add(gmailIntent);
+
+        //카카오톡
+        Intent kakaotalkintent = getShareIntent("com.kakao.talk", subject, text);
+        if (kakaotalkintent != null) {
+            targetShareIntent.add(kakaotalkintent);
+        }
+
+        Intent chooser = Intent.createChooser((Intent) targetShareIntent.remove(0), "친구에게 공유하기");
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetShareIntent.toArray(new Parcelable[]{}));
+        startActivity(chooser);
+
+    }
+
+    private Intent getShareIntent(String name, String subject, String text) {
+        boolean found = false;
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+
+        List<ResolveInfo> resinfo = getPackageManager().queryIntentActivities(intent, 0);
+
+        if(resinfo == null || resinfo.size() == 0)
+            return null;
+
+        for(ResolveInfo info : resinfo) {
+            if(info.activityInfo.packageName.toLowerCase().contains(name) || info.activityInfo.name.toLowerCase().contains(name)) {
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                intent.setPackage(info.activityInfo.packageName);
+                found = true;
+                break;
+            }
+        }
+
+        if (found)
+            return intent;
+
+        return null;
+    }
+
+    //카카오톡 공유하기
+    public void shareKakao() {
+        try {
+            final KakaoLink kakaoLink = KakaoLink.getKakaoLink(this);
+            final KakaoTalkLinkMessageBuilder kakaoTalkBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+            kakaoTalkBuilder.addText(name_str+"님이 핫플레이스를 공유하였습니다!");
+            kakaoTalkBuilder.addAppButton("앱 실행 혹은 다운로드");
+            kakaoLink.sendMessage(kakaoTalkBuilder, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -23,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = database.getInstance().getReference();
 
+    Toolbar Settings_toolbar;
     RadioGroup radioGroup;
     SwitchCompat switchCompat;
 
@@ -31,9 +32,10 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        Settings_toolbar = (Toolbar) findViewById(R.id.settings_toolbar);
+        setSupportActionBar(Settings_toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         radioGroup = (RadioGroup) findViewById(R.id.memo_open_range_radiogroup);
         switchCompat = (SwitchCompat) findViewById(R.id.location_open_range_switch);
 

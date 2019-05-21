@@ -1,16 +1,7 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/maincentercolor</item>
-        <item name="colorPrimaryDark">@color/maincentercolor</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-    </style>
-
-    <style name="WelcomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Base application theme. => welcome activity, sign up activity -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/maincentercolor</item>
         <item name="colorPrimaryDark">@color/maincentercolor</item>
@@ -54,5 +45,9 @@
         <item name="spinBars">true</item>
         <item name="color">@color/white</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

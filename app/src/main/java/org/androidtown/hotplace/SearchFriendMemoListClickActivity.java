@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class SearchFriendMemoListClickActivity extends AppCompatActivity {
 
+    Toolbar Search_Friend_Memo_List_Click_Toolbar;
     ImageView memo_photo_imageview;
     TextView memo_date_textview, memo_location_textview, memo_contents_textview;
 
@@ -49,6 +50,8 @@ public class SearchFriendMemoListClickActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_friend_memo_list_click);
 
+        Search_Friend_Memo_List_Click_Toolbar = (Toolbar) findViewById(R.id.search_friend_memo_list_click_toolbar);
+        setSupportActionBar(Search_Friend_Memo_List_Click_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

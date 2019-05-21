@@ -1,6 +1,7 @@
 package org.androidtown.hotplace;
 
 import android.app.Activity;
+import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 public class BackPressCloseHandler {

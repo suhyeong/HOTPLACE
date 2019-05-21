@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 
 public class MemoListClickActivity extends AppCompatActivity {
 
+    Toolbar Memo_List_Click_Toolbar;
     ImageView memo_photo_imageview;
     TextView memo_date_textview, memo_location_textview;
     EditText memo_contents_edittext;
@@ -61,6 +62,8 @@ public class MemoListClickActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_list_click);
 
+        Memo_List_Click_Toolbar = (Toolbar) findViewById(R.id.memo_list_click_toolbar);
+        setSupportActionBar(Memo_List_Click_Toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

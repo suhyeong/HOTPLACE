@@ -9,6 +9,28 @@
     tools:context=".SettingsActivity"
     tools:ignore="missingPrefix">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/AppTheme.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="설정"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+    </android.support.v7.widget.Toolbar>
+
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +45,7 @@
             android:textColor="@color/mainpink"
             sl:scale_width="300"
             sl:scale_height="50"
-            sl:scale_top="50"
+            sl:scale_top="200"
             sl:scale_left="50"
             sl:scale_textsize="40"
             tools:ignore="MissingConstraints" />
@@ -36,7 +58,7 @@
             android:textColor="@color/colorPrimaryDark"
             sl:scale_width="500"
             sl:scale_height="100"
-            sl:scale_top="120"
+            sl:scale_top="270"
             sl:scale_left="50"
             sl:scale_textsize="55"
             tools:ignore="MissingConstraints" />
@@ -47,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
-            sl:scale_top="220"
+            sl:scale_top="370"
             sl:scale_width="980"
             sl:scale_height="400">
 
@@ -91,7 +113,7 @@
             android:textAlignment="viewEnd"
             sl:scale_width="980"
             sl:scale_height="50"
-            sl:scale_top="620"
+            sl:scale_top="760"
             sl:scale_left="50"
             sl:scale_textsize="40"
             tools:ignore="MissingConstraints" />
@@ -104,7 +126,7 @@
             sl:scale_height="50"
             sl:scale_left="50"
             sl:scale_textsize="40"
-            sl:scale_top="730"
+            sl:scale_top="880"
             sl:scale_width="300"
             tools:ignore="MissingConstraints" />
 
@@ -120,7 +142,7 @@
             android:background="@drawable/settings_list_shape"
             sl:scale_width="980"
             sl:scale_height="110"
-            sl:scale_top="800"
+            sl:scale_top="950"
             sl:scale_textsize="55"/>
 
         <TextView
@@ -131,7 +153,7 @@
             android:textAlignment="viewEnd"
             sl:scale_width="980"
             sl:scale_height="50"
-            sl:scale_top="920"
+            sl:scale_top="1070"
             sl:scale_left="50"
             sl:scale_textsize="40"
             tools:ignore="MissingConstraints" />
@@ -143,7 +165,7 @@
             android:textColor="@color/mainpink"
             sl:scale_width="300"
             sl:scale_height="50"
-            sl:scale_top="1040"
+            sl:scale_top="1190"
             sl:scale_left="50"
             sl:scale_textsize="40"
             tools:ignore="MissingConstraints" />
@@ -156,7 +178,7 @@
             android:textColor="@color/colorPrimaryDark"
             sl:scale_width="980"
             sl:scale_height="100"
-            sl:scale_top="1110"
+            sl:scale_top="1260"
             sl:scale_left="50"
             sl:scale_textsize="55"
             tools:ignore="MissingConstraints" />

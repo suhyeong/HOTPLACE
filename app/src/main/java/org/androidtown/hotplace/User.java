@@ -1,8 +1,13 @@
 package org.androidtown.hotplace;
 
+import android.net.Uri;
+
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 

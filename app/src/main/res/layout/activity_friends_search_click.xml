@@ -11,6 +11,18 @@
     android:scrollbars="vertical"
     android:scrollbarStyle="insideOverlay" >
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_friends_list_click_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="0dp"
+        app:contentInsetStart="0dp"
+        tools:ignore="MissingConstraints">
+    </android.support.v7.widget.Toolbar>
+
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +36,7 @@
             android:layout_height="wrap_content"
             android:src="@null"
             android:layout_gravity="center_horizontal"
-            sl:scale_top="130"
+            sl:scale_top="290"
             sl:scale_width="350"
             sl:scale_height="350" />
 
@@ -33,42 +45,42 @@
             android:layout_height="wrap_content"
             android:background="@drawable/userinfolist_shape"
             sl:scale_height="400"
-            sl:scale_top="600"
+            sl:scale_top="790"
             sl:scale_width="1080" />
 
         <TextView
-            android:id="@+id/textview_request_friend_name"
+            android:id="@+id/textview_search_friend_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이름"
             android:textAlignment="center"
             sl:scale_width="400"
             sl:scale_height="65"
-            sl:scale_top="655"
+            sl:scale_top="845"
             sl:scale_left="50"
             sl:scale_textsize="50"/>
 
         <TextView
-            android:id="@+id/textview_request_friend_email"
+            android:id="@+id/textview_search_friend_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이메일"
             android:textAlignment="center"
             sl:scale_width="400"
             sl:scale_height="65"
-            sl:scale_top="760"
+            sl:scale_top="945"
             sl:scale_left="50"
             sl:scale_textsize="50"/>
 
         <TextView
-            android:id="@+id/textview_request_friend_birth"
+            android:id="@+id/textview_search_friend_birth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="생년월일"
             android:textAlignment="center"
             sl:scale_width="400"
             sl:scale_height="65"
-            sl:scale_top="865"
+            sl:scale_top="1055"
             sl:scale_left="50"
             sl:scale_textsize="50"/>
 
@@ -80,7 +92,7 @@
             android:textColor="@color/black"
             sl:scale_height="65"
             sl:scale_textsize="50"
-            sl:scale_top="655"
+            sl:scale_top="845"
             sl:scale_left="520"
             sl:scale_width="530" />
 
@@ -92,7 +104,7 @@
             android:textColor="@color/black"
             sl:scale_height="65"
             sl:scale_textsize="50"
-            sl:scale_top="760"
+            sl:scale_top="950"
             sl:scale_left="520"
             sl:scale_width="530" />
 
@@ -104,7 +116,7 @@
             android:textColor="@color/black"
             sl:scale_height="65"
             sl:scale_textsize="50"
-            sl:scale_top="865"
+            sl:scale_top="1055"
             sl:scale_left="520"
             sl:scale_width="530" />
 
@@ -118,7 +130,7 @@
             android:background="@drawable/userinfolist_shape"
             sl:scale_textsize="40"
             sl:scale_width="1080"
-            sl:scale_top="1060"
+            sl:scale_top="1250"
             sl:scale_height="150"/>
 
         <TextView
@@ -131,7 +143,7 @@
             android:background="@drawable/userinfolist_shape"
             sl:scale_textsize="40"
             sl:scale_width="1080"
-            sl:scale_top="1060"
+            sl:scale_top="1250"
             sl:scale_height="150"/>
 
         <TextView
@@ -144,7 +156,7 @@
             android:background="@drawable/userinfolist_shape"
             sl:scale_textsize="40"
             sl:scale_width="1080"
-            sl:scale_top="1060"
+            sl:scale_top="1250"
             sl:scale_height="150"/>
 
         <ScrollView
@@ -154,16 +166,16 @@
             android:fillViewport="true"
             sl:scale_width="1080"
             sl:scale_height="500"
-            sl:scale_top="1060"
+            sl:scale_top="1250"
             tools:ignore="MissingConstraints">
-            <ListView
-                android:id="@+id/search_friend_memo_listview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                sl:scale_width="1080"
-                sl:scale_height="600"
-                sl:scale_top="1060" />
+        <ListView
+            android:id="@+id/search_friend_memo_listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            sl:scale_width="1080"
+            sl:scale_height="600"
+            sl:scale_top="1250" />
         </ScrollView>
     </com.ssomai.android.scalablelayout.ScalableLayout>
 
