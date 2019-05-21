@@ -21,13 +21,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FriendMemoListClickActivity"></activity>
-        <activity android:name=".SearchFriendMemoListClickActivity" />
-        <activity android:name=".FriendsListClickActivity" />
-        <activity android:name=".FriendsSearchClickActivity" />
-        <activity android:name=".FriendRequestListClickActivity" />
-        <activity android:name=".MemoListClickActivity" />
-        <activity android:name=".SignUpActivity" />
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/WelcomeTheme">
@@ -36,6 +29,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".FriendMemoListClickActivity" />
+        <activity android:name=".SearchFriendMemoListClickActivity" />
+        <activity android:name=".FriendsListClickActivity" />
+        <activity android:name=".FriendsSearchClickActivity" />
+        <activity android:name=".FriendRequestListClickActivity" />
+        <activity android:name=".MemoListClickActivity" />
+        <activity android:name=".SignUpActivity"
+            android:theme="@style/WelcomeTheme">
         </activity>
         <activity android:name=".SearchActivity" />
         <activity android:name=".MemoActivity" />
